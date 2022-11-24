@@ -280,18 +280,18 @@ class AIR_PT_operation(bpy.types.Panel):
         row = layout.row()
         row.enabled = manual_buttons_enabled
         row.operator(operators.AIR_OT_generate_new_image_from_current.bl_idname)
-        
+
         layout.separator()
-        
+
         row = layout.row()
         row.label(text="Configure Filename:")
-        
+
         row = layout.row()
         row.prop(props, "use_seed_in_filename")
-        
+
         row = layout.row()
         row.prop(props, "use_prompt_in_filename")
-        
+
         layout.separator()
 
         row = layout.row()

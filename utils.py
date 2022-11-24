@@ -39,6 +39,19 @@ def create_temp_file(prefix, suffix=".png"):
     return tempfile.NamedTemporaryFile(prefix=prefix, suffix=suffix).name
 
 
+def get_cleaned_filename(filename):
+    """Remove invalid characters from a filename and reduce it to the maximum allowed length"""
+    max_filepath_length = 250
+    autosave_image_path_length = len(bpy.context.scene.air_props.autosave_image_path)
+    
+    filename_allowed_length = min(128, max_filepath_length - autosave_image_path_length)
+    
+    forbidden_characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
+    for character in forbidden_characters:
+        filename = filename.replace(character, '')
+    return filename[:filename_allowed_length]
+
+
 def get_filepath_in_package(path, filename="", starting_dir=__file__):
     """Convert a relative path in the add-on package to an absolute path"""
     script_path = os.path.dirname(os.path.realpath(starting_dir))

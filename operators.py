@@ -432,6 +432,18 @@ def send_to_api(scene, prompt=None):
     timestamp = int(time.time())
     before_output_filename_prefix = f"ai-render-{timestamp}-1-before"
     after_output_filename_prefix = f"ai-render-{timestamp}-2-after"
+    
+    if props.use_seed_in_filename:
+        before_output_filename_prefix += f"-{props.seed}"
+        after_output_filename_prefix += f"-{props.seed}"
+    
+    if props.use_prompt_in_filename:
+        before_output_filename_prefix += f"-{prompt}"
+        after_output_filename_prefix += f"-{prompt}"
+    
+    before_output_filename_prefix = utils.get_cleaned_filename(before_output_filename_prefix)
+    after_output_filename_prefix = utils.get_cleaned_filename(after_output_filename_prefix)
+        
     animation_output_filename_prefix = "ai-render-"
 
     # save the rendered image and then read it back in

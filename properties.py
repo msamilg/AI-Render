@@ -167,6 +167,16 @@ class AIRProperties(bpy.types.PropertyGroup):
         name="Close Animation Tips",
         default=False,
     )
+    use_seed_in_filename: bpy.props.BoolProperty(
+        name="Use Seed in Filename",
+        default=True,
+        description="When true, will use the seed in the filename of the saved image",
+    )
+    use_prompt_in_filename: bpy.props.BoolProperty(
+        name="Use Prompt in Filename",
+        default=True,
+        description="When true, will use the prompt in the filename of the saved image",
+    )
 
 
 classes = [

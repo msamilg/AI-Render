@@ -438,11 +438,8 @@ def send_to_api(scene, prompt=None):
         after_output_filename_prefix += f"-{props.seed}"
 
     if props.use_prompt_in_filename:
-        before_output_filename_prefix += f"-{prompt}"
-        after_output_filename_prefix += f"-{prompt}"
-
-    before_output_filename_prefix = utils.get_cleaned_filename(before_output_filename_prefix)
-    after_output_filename_prefix = utils.get_cleaned_filename(after_output_filename_prefix)
+        before_output_filename_prefix = utils.get_cleaned_filename(before_output_filename_prefix + f"-{prompt}")
+        after_output_filename_prefix = utils.get_cleaned_filename(after_output_filename_prefix + f"-{prompt}")
 
     animation_output_filename_prefix = "ai-render-"
 

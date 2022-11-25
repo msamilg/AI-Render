@@ -437,6 +437,16 @@ def send_to_api(scene, prompt=None):
         before_output_filename_prefix += f"-{props.seed}"
         after_output_filename_prefix += f"-{props.seed}"
 
+    preset_style = utils.get_preset_style_identifier()
+    if props.use_preset_in_filename and preset_style is not None:
+        before_output_filename_prefix += f"-{preset_style}"
+        after_output_filename_prefix += f"-{preset_style}"
+
+    if props.use_sampler_in_filename:
+        sampler = utils.get_sampler_identifier()
+        before_output_filename_prefix += f"-{sampler}"
+        after_output_filename_prefix += f"-{sampler}"
+
     if props.use_prompt_in_filename:
         before_output_filename_prefix = utils.get_cleaned_filename(before_output_filename_prefix + f"-{prompt}")
         after_output_filename_prefix = utils.get_cleaned_filename(after_output_filename_prefix + f"-{prompt}")

@@ -177,6 +177,16 @@ class AIRProperties(bpy.types.PropertyGroup):
         default=True,
         description="When true, will use the prompt in the filename of the saved image",
     )
+    use_preset_in_filename: bpy.props.BoolProperty(
+        name="Use Preset in Filename",
+        default=True,
+        description="When true, will use the preset style in the filename of the saved image",
+    )
+    use_sampler_in_filename: bpy.props.BoolProperty(
+        name="Use Sampler in Filename",
+        default=True,
+        description="When true, will use the sampler in the filename of the saved image",
+    )
 
 
 classes = [

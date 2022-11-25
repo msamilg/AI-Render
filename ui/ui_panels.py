@@ -287,10 +287,12 @@ class AIR_PT_operation(bpy.types.Panel):
         row.label(text="Configure Filename:")
 
         row = layout.row()
-        row.prop(props, "use_seed_in_filename")
+        row.prop(props, "use_seed_in_filename", text="Use Seed")
+        row.prop(props, "use_prompt_in_filename", text="Use Prompt")
 
         row = layout.row()
-        row.prop(props, "use_prompt_in_filename")
+        row.prop(props, "use_preset_in_filename", text="Use Preset Style")
+        row.prop(props, "use_sampler_in_filename", text="Use Sampler")
 
         layout.separator()
 

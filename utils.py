@@ -23,6 +23,8 @@ import os
 import shutil
 import tempfile
 from . import config
+from .ui import ui_preset_styles
+from . import properties
 
 
 valid_dimensions = [384, 448, 512, 576, 640, 704, 768, 832, 896, 960, 1024]
@@ -86,6 +88,23 @@ def get_extension_from_file_format(file_format):
         return file_formats[file_format]
     else:
         return ""
+
+
+def get_preset_style_identifier():
+    enum_items = ui_preset_styles.preset_styles
+    for item in enum_items:
+        if item[1] == bpy.context.scene.air_props.preset_style:
+            return item[0]
+    return None
+
+
+def get_sampler_identifier():
+    enum_items = properties.get_available_samplers(None, None)
+    print(enum_items)
+    for item in enum_items:
+        if item[0] == bpy.context.scene.air_props.sampler:
+            return item[1]
+    return None
 
 
 def get_current_workspace(context=None):

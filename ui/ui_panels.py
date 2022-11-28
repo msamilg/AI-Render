@@ -285,13 +285,17 @@ class AIR_PT_operation(bpy.types.Panel):
 
         row = layout.row()
         row.label(text="Configure Filename:")
-
+        
         row = layout.row()
+        row.prop(props, "use_timestamp_in_filename", text="Use Timestamp")
         row.prop(props, "use_seed_in_filename", text="Use Seed")
-        row.prop(props, "use_prompt_in_filename", text="Use Prompt")
 
         row = layout.row()
+        row.prop(props, "use_prompt_in_filename", text="Use Prompt")
         row.prop(props, "use_preset_in_filename", text="Use Preset Style")
+
+        row = layout.row()
+        row.prop(props, "use_steps_in_filename", text="Use Steps")
         row.prop(props, "use_sampler_in_filename", text="Use Sampler")
 
         layout.separator()

@@ -14,6 +14,7 @@ from . import (
 
 from .sd_backends.dreamstudio import dreamstudio_api
 from .sd_backends.automatic1111 import automatic1111_api
+from .ui import ui_preset_styles
 
 
 valid_dimensions_tuple_list = utils.generate_valid_dimensions_tuple_list()
@@ -372,6 +373,22 @@ def get_prompt_at_frame(animated_prompts, frame):
     return ""
 
 
+def get_preset_style_identifier():
+    enum_items = ui_preset_styles.preset_styles
+    for item in enum_items:
+        if item[1] == bpy.context.scene.air_props.preset_style:
+            return item[0]
+    return None
+
+
+def get_sampler_identifier():
+    enum_items = utils.get_available_samplers(None, None)
+    for item in enum_items:
+        if item[0] == bpy.context.scene.air_props.sampler:
+            return item[1]
+    return None
+
+
 def validate_and_process_animated_prompt_text(scene):
     text_data = utils.get_animated_prompt_text_data_block()
     if text_data is None:
@@ -437,13 +454,13 @@ def send_to_api(scene, prompt=None):
         before_output_filename_prefix += f"-{props.seed}"
         after_output_filename_prefix += f"-{props.seed}"
 
-    preset_style = utils.get_preset_style_identifier()
+    preset_style = get_preset_style_identifier()
     if props.use_preset_in_filename and preset_style is not None:
         before_output_filename_prefix += f"-{preset_style}"
         after_output_filename_prefix += f"-{preset_style}"
 
     if props.use_sampler_in_filename:
-        sampler = utils.get_sampler_identifier()
+        sampler = get_sampler_identifier()
         before_output_filename_prefix += f"-{sampler}"
         after_output_filename_prefix += f"-{sampler}"
 

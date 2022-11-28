@@ -6,36 +6,13 @@ from . import (
     utils,
 )
 from .ui import ui_preset_styles
-from .sd_backends.dreamstudio import dreamstudio_api
-from .sd_backends.automatic1111 import automatic1111_api
-
-
-def get_available_samplers(self, context):
-    if utils.do_use_local_sd():
-        if utils.local_sd_backend() == "automatic1111":
-            return automatic1111_api.get_samplers()
-        else:
-            print(f"You are trying to use a local Stable Diffusion installation that isn't supported: {utils.local_sd_backend()}")
-            return []
-    else:
-        return dreamstudio_api.get_samplers()
-
-
-def get_default_sampler():
-    if utils.do_use_local_sd():
-        if utils.local_sd_backend() == "automatic1111":
-            return automatic1111_api.default_sampler()
-        else:
-            return ""
-    else:
-        return dreamstudio_api.default_sampler()
 
 
 def ensure_sampler(self, context):
     # """Ensure that the sampler is set to a valid value"""
     scene = context.scene
     if not scene.air_props.sampler:
-        scene.air_props.sampler = get_default_sampler()
+        scene.air_props.sampler = utils.get_default_sampler()
 
 
 class AIRProperties(bpy.types.PropertyGroup):
@@ -89,7 +66,7 @@ class AIRProperties(bpy.types.PropertyGroup):
     sampler: bpy.props.EnumProperty(
         name="Sampler",
         default=60, # maps to "k_lms" or "LMS"
-        items=get_available_samplers,
+        items=utils.get_available_samplers,
         description="Which sampler method to use",
     )
     auto_run: bpy.props.BoolProperty(
@@ -177,6 +154,11 @@ class AIRProperties(bpy.types.PropertyGroup):
         default=True,
         description="When true, will use the prompt in the filename of the saved image",
     )
+    use_timestamp_in_filename: bpy.props.BoolProperty(
+        name="Use Timestamp in Filename",
+        default=True,
+        description="When true, will use a timestamp in the filename of the saved image",
+    )
     use_preset_in_filename: bpy.props.BoolProperty(
         name="Use Preset in Filename",
         default=True,
@@ -186,6 +168,11 @@ class AIRProperties(bpy.types.PropertyGroup):
         name="Use Sampler in Filename",
         default=True,
         description="When true, will use the sampler in the filename of the saved image",
+    )
+    use_steps_in_filename: bpy.props.BoolProperty(
+        name="Use Steps in Filename",
+        default=True,
+        description="When true, will use the number of steps in the filename of the saved image",
     )
 
 
